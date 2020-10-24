@@ -4,20 +4,26 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 import Home from './Components/Home';
-import Login from './Components/Login';
+import Login from './Components/Login/Login';
+
+import { UserStorage } from './UserContext'
 
 import './App.css'
-
+import User from './Components/User/User';
+import ProtectedRoute from './Components/Helper/ProtectedRoute';
 
 function App() {
   return (
     <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} />
-      </Routes>
-      <Footer />
+      <UserStorage>
+        <Header />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login/*' element={<Login />} />
+          <ProtectedRoute path='/conta/*' element={<User />} />
+        </Routes>
+        <Footer />
+      </UserStorage>
     </BrowserRouter>
   );
 }
